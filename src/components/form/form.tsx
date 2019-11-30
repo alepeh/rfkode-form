@@ -11,6 +11,7 @@ export class Form {
   @Prop() schema: Schema;
 
   render() {
+    console.log("Rendering: " + JSON.stringify(this.data));
     return (
       <Host>
         {Object.keys(this.data).map((property) => 
