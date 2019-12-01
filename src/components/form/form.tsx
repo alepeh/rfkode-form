@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'rfkode-form',
@@ -10,18 +10,30 @@ export class Form {
   @Prop() data: Object;
   @Prop() schema: Schema;
 
+  inputs: any = {};
+
+  @Event() dataChanged: EventEmitter;
+
   render() {
-    console.log("Rendering: " + JSON.stringify(this.data));
     return (
       <Host>
         {Object.keys(this.data).map((property) => 
-          <ion-item>
-          <ion-label position="floating">{property}</ion-label>
-          <ion-input id={property}>{this.data[property]}</ion-input>
+        <ion-item>
+          <ion-label position="stacked">{property}</ion-label>
+          <ion-input onIonInput={() => this._onDataChanged(property) } 
+            type="text" id={property} value={this.data[property]}
+            ref={(el) => this.inputs[property] = el}  
+          ></ion-input>
         </ion-item>
         )}
       </Host>
     );
+  }
+
+  _onDataChanged(property){
+    let newValue = this.inputs[property].value;
+    let ev = { property : property,  value : newValue};
+    this.dataChanged.emit(ev);
   }
 
 }

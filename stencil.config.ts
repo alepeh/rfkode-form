@@ -2,7 +2,7 @@ import { Config } from '@stencil/core';
 
 export const config: Config = {
   namespace: 'rfkode-form',
-  globalStyle: 'src/global.css',
+  globalStyle: 'src/globals/app.css',
   outputTargets: [
     {
       type: 'dist',

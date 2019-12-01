@@ -13,6 +13,13 @@
 | `schema` | --        |             | `Schema` | `undefined` |
 
 
+## Events
+
+| Event         | Description | Type               |
+| ------------- | ----------- | ------------------ |
+| `dataChanged` |             | `CustomEvent<any>` |
+
+
 ## Dependencies
 
 ### Depends on

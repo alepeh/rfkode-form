@@ -32,6 +32,7 @@ declare global {
 declare namespace LocalJSX {
   interface RfkodeForm {
     'data'?: Object;
+    'onDataChanged'?: (event: CustomEvent<any>) => void;
     'schema'?: Schema;
   }
 

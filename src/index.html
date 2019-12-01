@@ -4,14 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
-
   <script type="module" src="/build/rfkode-form.esm.js"></script>
   <script nomodule src="/build/rfkode-form.js"></script>
-
 </head>
 <body>
 
-  <rfkode-form></rfkode-form>
-
+  <rfkode-form id="form"></rfkode-form>
+  <script>
+    console.log("Hello World");
+    const form = document.getElementById("form");
+    const data = { prop1 : "value1" ,  prop2 : "value2"};
+    form.data = data;
+  </script>
 </body>
 </html>
