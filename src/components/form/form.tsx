@@ -1,4 +1,5 @@
-import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, Host, h, Prop, Event, EventEmitter, Listen } from '@stencil/core';
+import { widgetFactory } from '../../widgets/widgetFactory';
 
 @Component({
   tag: 'rfkode-form',
@@ -17,23 +18,21 @@ export class Form {
   render() {
     return (
       <Host>
-        {Object.keys(this.data).map((property) => 
-        <ion-item>
-          <ion-label position="stacked">{property}</ion-label>
-          <ion-input onIonInput={() => this._onDataChanged(property) } 
-            type="text" id={property} value={this.data[property]}
-            ref={(el) => this.inputs[property] = el}  
-          ></ion-input>
-        </ion-item>
-        )}
+        {Object.keys(this.data).map((property) => {
+        return this._getWidgetForProperty(property)
+        })}
       </Host>
     );
   }
 
-  _onDataChanged(property){
-    let newValue = this.inputs[property].value;
-    let ev = { property : property,  value : newValue};
-    this.dataChanged.emit(ev);
+  @Listen('data-changed', { target : 'window'})
+  _onDataChanged(ev){
+    this.dataChanged.emit(ev.detail);
+    console.dir(ev);
+  }
+
+  _getWidgetForProperty(property){
+    return widgetFactory.produceWidget(this.schema, property, this.data[property]);
   }
 
 }

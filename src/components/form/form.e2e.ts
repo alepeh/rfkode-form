@@ -35,6 +35,7 @@ describe('rfkode-form', () => {
     await input.press('A');
     await page.waitForChanges();
     expect(inputSpy).toHaveReceivedEvent();
+    console.dir(inputSpy.firstEvent);
     expect(inputSpy.firstEvent.detail).toEqual({property : "prop1", value : "value1A"});
   });
 

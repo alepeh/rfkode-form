@@ -1,5 +1,9 @@
 interface Schema {
-    jsonSchema : Object;
+    jsonSchema : JsonSchema;
     uiSchema : Object;
     actions : Object;
+}
+
+interface JsonSchema {
+    properties : Array<Object>;
 }
