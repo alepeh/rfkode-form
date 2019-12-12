@@ -13,7 +13,49 @@
   <script>
     console.log("Hello World");
     const form = document.getElementById("form");
-    const data = { prop1 : "value1" ,  prop2 : "value2"};
+    const data = { text1 : "text" ,  number1 : 123, enum1 : "Einzelofen", array1 : ["Holz", "Kohle"], boolean1 : true};
+      const schema =
+      {
+        jsonSchema:
+        {
+          properties: {
+            text1: {
+              type: "string"
+            },
+            number1: {
+              type: "number"
+            },
+            boolean1: {
+              type: "boolean"
+            },
+            enum1: {
+              type: "string",
+              enum: [
+                "Einzelofen",
+                "Zentralheizung",
+                "Elektroheizung",
+                "Wärmepumpe"
+              ]
+            },
+            array1: {
+              type: "array",
+              items: {
+                type: "string",
+                enum: [
+                  "Holz",
+                  "Kohle",
+                  "Heizöl"
+                ]
+              }
+            },
+            date1: {
+              type: "string",
+              format: "date"
+            }
+          }
+        }
+      };
+    form.schema = schema;
     form.data = data;
   </script>
 </body>

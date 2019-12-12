@@ -8,7 +8,7 @@ import { widgetFactory } from '../../widgets/widgetFactory';
 })
 export class Form {
 
-  @Prop() data: Object;
+  @Prop() data: Object = {};
   @Prop() schema: Schema;
 
   inputs: any = {};
@@ -16,13 +16,26 @@ export class Form {
   @Event() dataChanged: EventEmitter;
 
   render() {
-    return (
-      <Host>
-        {Object.keys(this.data).map((property) => {
-        return this._getWidgetForProperty(property)
-        })}
-      </Host>
-    );
+    if (this.schema) {
+      return (
+        <Host>
+          {Object.keys(this.schema.jsonSchema.properties).map((property) => {
+            return this._getWidgetForProperty(property)
+          })
+        }
+        </Host>
+      )
+    }
+    else {
+      return (
+        <Host>
+          {Object.keys(this.data).map((property) => {
+            return this._getWidgetForProperty(property)
+          })
+        }
+        </Host>
+      )
+    }
   }
 
   @Listen('data-changed', { target : 'window'})

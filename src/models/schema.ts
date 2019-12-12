@@ -5,5 +5,5 @@ interface Schema {
 }
 
 interface JsonSchema {
-    properties : Array<Object>;
+    properties : Object;
 }
