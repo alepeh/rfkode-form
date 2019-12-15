@@ -14,8 +14,11 @@ export class Form {
   inputs: any = {};
 
   @Event() dataChanged: EventEmitter;
+  @Event() relatedElementAction: EventEmitter;
 
   render() {
+    console.log(this.schema);
+    console.log(this.data);
     if (this.schema) {
       return (
         <Host>
@@ -41,6 +44,12 @@ export class Form {
   @Listen('data-changed', { target : 'window'})
   _onDataChanged(ev){
     this.dataChanged.emit(ev.detail);
+    console.dir(ev);
+  }
+
+  @Listen('related-element-action', { target : 'window'})
+  _onRelatedElementAction(ev){
+    this.relatedElementAction.emit(ev.detail);
     console.dir(ev);
   }
 

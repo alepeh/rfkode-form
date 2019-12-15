@@ -16,7 +16,7 @@ export class BasicWidgetFactory implements Factory {
   }
 
   _getDataType(schema: Schema, property: any) {
-    if (!schema) {
+    if (!schema && ! schema.jsonSchema) {
       return "";
     }
     else {
@@ -28,7 +28,7 @@ export class BasicWidgetFactory implements Factory {
     console.log(data);
     return (
       <ion-item>
-        <ion-label>{property}</ion-label>
+        <ion-label position="stacked">{property}</ion-label>
         <ion-select id={property} 
           onIonChange={() => this._onDataChanged(property, "array")} 
           ref={(el) => this.inputs[property] = el} 
@@ -47,7 +47,7 @@ export class BasicWidgetFactory implements Factory {
     if (schema.enum) {
       return (
         <ion-item>
-          <ion-label>{property}</ion-label>
+          <ion-label position="stacked">{property}</ion-label>
           <ion-select id={property} 
             onIonChange={() => this._onDataChanged(property, "string")} 
             ref={(el) => this.inputs[property] = el}
@@ -63,7 +63,7 @@ export class BasicWidgetFactory implements Factory {
     else if (schema.format && schema.format === "date"){
       return (
         <ion-item>
-          <ion-label>{property}</ion-label>
+          <ion-label position="stacked">{property}</ion-label>
           <ion-datetime id={property} 
             onIonChange={() => this._onDataChanged(property, "date")} 
             ref={(el) => this.inputs[property] = el}
@@ -104,7 +104,7 @@ export class BasicWidgetFactory implements Factory {
   booleanWidget(property : any, data : string){
     return (
       <ion-item>
-        <ion-label>{property}</ion-label>
+        <ion-label position="stacked">{property}</ion-label>
         <ion-toggle slot="end" 
           id={property} 
           checked={Boolean(data)}

@@ -33,6 +33,7 @@ declare namespace LocalJSX {
   interface RfkodeForm {
     'data'?: Object;
     'onDataChanged'?: (event: CustomEvent<any>) => void;
+    'onRelatedElementAction'?: (event: CustomEvent<any>) => void;
     'schema'?: Schema;
   }
 

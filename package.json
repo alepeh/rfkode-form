@@ -31,6 +31,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@ionic/core": "^4.11.5"
+    "@ionic/core": "^4.11.5",
+    "ionicons": "^4.6.3"
   }
 }

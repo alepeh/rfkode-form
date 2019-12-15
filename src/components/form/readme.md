@@ -15,9 +15,10 @@
 
 ## Events
 
-| Event         | Description | Type               |
-| ------------- | ----------- | ------------------ |
-| `dataChanged` |             | `CustomEvent<any>` |
+| Event                  | Description | Type               |
+| ---------------------- | ----------- | ------------------ |
+| `dataChanged`          |             | `CustomEvent<any>` |
+| `relatedElementAction` |             | `CustomEvent<any>` |
 
 
 ----------------------------------------------
