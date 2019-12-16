@@ -13,8 +13,21 @@ export class AdvancedWidgetFactory implements Factory {
             case ("selectRelated"): return this.selectRelatedWidget(property, Array(data));
             case ("selectMultipleRelated"): return this.selectRelatedWidget(property, data, true);
             case ("textarea"): return this.textAreaWidget(property, data);
+            case ("signature"): return this.signatureWidget(property, data);
             default: return this.unsupportedWidget(property, data);
         }
+    }
+
+    signatureWidget(property: string, data: any) {
+        console.log(property + " " + data);
+        return(
+            <ion-item>
+                <p>
+                    <ion-label position="stacked">{property}</ion-label>
+                </p>
+                <rfk-signature fieldName={property}></rfk-signature>
+            </ion-item>
+        );
     }
     textAreaWidget(property: string, data: any) {
         return (

@@ -15,6 +15,7 @@ export class Form {
 
   @Event() dataChanged: EventEmitter;
   @Event() relatedElementAction: EventEmitter;
+  @Event() attachmentChanged: EventEmitter;
 
   render() {
     console.log(this.schema);
@@ -44,6 +45,12 @@ export class Form {
   @Listen('data-changed', { target : 'window'})
   _onDataChanged(ev){
     this.dataChanged.emit(ev.detail);
+    console.dir(ev);
+  }
+
+  @Listen('attachment-changed', { target : 'window'})
+  _onAttachmentChanged(ev){
+    this.attachmentChanged.emit(ev.detail);
     console.dir(ev);
   }
 

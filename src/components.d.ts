@@ -10,6 +10,9 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
+  interface RfkSignature {
+    'fieldName': any;
+  }
   interface RfkodeForm {
     'data': Object;
     'schema': Schema;
@@ -19,25 +22,37 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLRfkSignatureElement extends Components.RfkSignature, HTMLStencilElement {}
+  var HTMLRfkSignatureElement: {
+    prototype: HTMLRfkSignatureElement;
+    new (): HTMLRfkSignatureElement;
+  };
+
   interface HTMLRfkodeFormElement extends Components.RfkodeForm, HTMLStencilElement {}
   var HTMLRfkodeFormElement: {
     prototype: HTMLRfkodeFormElement;
     new (): HTMLRfkodeFormElement;
   };
   interface HTMLElementTagNameMap {
+    'rfk-signature': HTMLRfkSignatureElement;
     'rfkode-form': HTMLRfkodeFormElement;
   }
 }
 
 declare namespace LocalJSX {
+  interface RfkSignature {
+    'fieldName'?: any;
+  }
   interface RfkodeForm {
     'data'?: Object;
+    'onAttachmentChanged'?: (event: CustomEvent<any>) => void;
     'onDataChanged'?: (event: CustomEvent<any>) => void;
     'onRelatedElementAction'?: (event: CustomEvent<any>) => void;
     'schema'?: Schema;
   }
 
   interface IntrinsicElements {
+    'rfk-signature': RfkSignature;
     'rfkode-form': RfkodeForm;
   }
 }
@@ -48,6 +63,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
+      'rfk-signature': LocalJSX.RfkSignature & JSXBase.HTMLAttributes<HTMLRfkSignatureElement>;
       'rfkode-form': LocalJSX.RfkodeForm & JSXBase.HTMLAttributes<HTMLRfkodeFormElement>;
     }
   }

@@ -17,6 +17,7 @@
 
 | Event                  | Description | Type               |
 | ---------------------- | ----------- | ------------------ |
+| `attachmentChanged`    |             | `CustomEvent<any>` |
 | `dataChanged`          |             | `CustomEvent<any>` |
 | `relatedElementAction` |             | `CustomEvent<any>` |
 
