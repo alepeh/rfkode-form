@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "rfkode form editor",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/alepeh/rfkode-form.git"
-  }
+    "type": "git",
+    "url": "https://github.com/alepeh/rfkode-form.git"
+  },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
