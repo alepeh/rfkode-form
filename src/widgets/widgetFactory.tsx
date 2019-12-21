@@ -1,5 +1,6 @@
 import { BasicWidgetFactory } from './basicWidgetFactory';
 import { AdvancedWidgetFactory } from './advancedWidgetFactory';
+import { Schema } from '../components/form/form';
 
 export class WidgetFactory {
 

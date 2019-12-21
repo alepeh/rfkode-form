@@ -1,6 +1,16 @@
 import { Component, Host, h, Prop, Event, EventEmitter, Listen } from '@stencil/core';
 import { widgetFactory } from '../../widgets/widgetFactory';
 
+export type Schema = {
+  jsonSchema : JsonSchema;
+  uiSchema : Object;
+  actions : Object;
+}
+
+export type JsonSchema = {
+  properties : Object;
+}
+
 @Component({
   tag: 'rfkode-form',
   styleUrl: 'form.css',

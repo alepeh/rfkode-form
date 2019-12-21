@@ -1,4 +1,6 @@
 import { h } from '@stencil/core';
+import { Schema } from '../components/form/form';
+import { Factory } from './factory';
 
 export class BasicWidgetFactory implements Factory {
 
@@ -16,7 +18,7 @@ export class BasicWidgetFactory implements Factory {
   }
 
   _getDataType(schema: Schema, property: any) {
-    if (!schema && ! schema.jsonSchema) {
+    if (!schema || ! schema.jsonSchema) {
       return "";
     }
     else {

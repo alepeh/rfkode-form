@@ -7,7 +7,9 @@
 
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-
+import {
+  Schema,
+} from './components/form/form';
 
 export namespace Components {
   interface RfkSignature {

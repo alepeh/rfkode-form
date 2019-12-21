@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default     |
-| -------- | --------- | ----------- | -------- | ----------- |
-| `data`   | --        |             | `Object` | `{}`        |
-| `schema` | --        |             | `Schema` | `undefined` |
+| Property | Attribute | Description | Type                                                             | Default     |
+| -------- | --------- | ----------- | ---------------------------------------------------------------- | ----------- |
+| `data`   | --        |             | `Object`                                                         | `{}`        |
+| `schema` | --        |             | `{ jsonSchema: JsonSchema; uiSchema: Object; actions: Object; }` | `undefined` |
 
 
 ## Events
