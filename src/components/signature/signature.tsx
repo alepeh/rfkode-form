@@ -10,7 +10,7 @@ import * as blobUtil from 'blob-util';
 export class Signature {
 
   @Prop() fieldName;
-
+  @Prop() value;
 
   signaturePad: any;
 
@@ -20,7 +20,6 @@ export class Signature {
   render() {
     return (
       <Host>
-
         <div id="signature-pad" class="signature-pad" ref={(el) => this.signaturePadElement = el as HTMLDivElement}>
           <div class="signature-pad--header">
             <div class="signature-pad--actions">
@@ -44,7 +43,6 @@ export class Signature {
     console.log("resize");
     var ratio = Math.max(window.devicePixelRatio || 1, 1);
     this.canvasElement.width = this.canvasElement.offsetWidth * ratio;
-
     this.canvasElement.height = this.canvasElement.offsetHeight * ratio;
     this.canvasElement.getContext("2d").scale(ratio, ratio);
     this.signaturePad.clear();
@@ -65,5 +63,10 @@ export class Signature {
   componentDidLoad() {
     this.signaturePad = new SignaturePad(this.canvasElement);
     this.resizeCanvas();
+    console.log("Value: " + this.value);
+    if(this.value){
+      this.signaturePad.fromDataURL("data:image/png;base64," + this.value);
+    
+    }
   }
 }

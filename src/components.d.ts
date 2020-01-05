@@ -14,6 +14,7 @@ import {
 export namespace Components {
   interface RfkSignature {
     'fieldName': any;
+    'value': any;
   }
   interface RfkodeForm {
     'data': Object;
@@ -44,6 +45,7 @@ declare global {
 declare namespace LocalJSX {
   interface RfkSignature {
     'fieldName'?: any;
+    'value'?: any;
   }
   interface RfkodeForm {
     'data'?: Object;

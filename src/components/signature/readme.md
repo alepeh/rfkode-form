@@ -10,6 +10,7 @@
 | Property    | Attribute    | Description | Type  | Default     |
 | ----------- | ------------ | ----------- | ----- | ----------- |
 | `fieldName` | `field-name` |             | `any` | `undefined` |
+| `value`     | `value`      |             | `any` | `undefined` |
 
 
 ## Dependencies

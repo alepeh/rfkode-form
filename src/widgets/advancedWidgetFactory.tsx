@@ -27,7 +27,7 @@ export class AdvancedWidgetFactory implements Factory {
                 <p>
                     <ion-label position="stacked">{property}</ion-label>
                 </p>
-                <rfk-signature fieldName={property}></rfk-signature>
+                <rfk-signature value={data} fieldName={property}></rfk-signature>
             </ion-item>
         );
     }
