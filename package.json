@@ -1,6 +1,6 @@
 {
   "name": "rfkode-form",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "rfkode form editor",
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
   "dependencies": {
     "@ionic/core": "^4.11.5",
     "blob-util": "^2.0.2",
+    "expr-eval": "^2.0.2",
     "ionicons": "^4.6.3",
     "signature_pad": "^3.0.0-beta.3"
   }
