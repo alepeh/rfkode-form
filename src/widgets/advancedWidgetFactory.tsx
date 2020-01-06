@@ -42,8 +42,9 @@ export class AdvancedWidgetFactory implements Factory {
         )
     }
 
-    selectRelatedWidget(property: string, data: Array<string>, multiple?: boolean) {
+    selectRelatedWidget(property: string, data: Array<any>, multiple?: boolean) {
         console.log(multiple);
+        debugger;
         return (
             <ion-list>
                 <ion-list-header>
@@ -53,8 +54,8 @@ export class AdvancedWidgetFactory implements Factory {
                 {data ? data.map(item => {
                     return (
                         <ion-item detail>
-                            <ion-label onClick={() => this._onRelatedElement(property, item, "view")}>{item}</ion-label>
-                            <ion-button onClick={() => this._onRelatedElement(property, item, "edit")} slot="end">Change</ion-button>
+                            <ion-label onClick={() => this._onRelatedElement(property, item._id, "view")}>{item._id}</ion-label>
+                            <ion-button onClick={() => this._onRelatedElement(property, item._id, "edit")} slot="end">Change</ion-button>
                         </ion-item>
                     )
                 }) : ""}
