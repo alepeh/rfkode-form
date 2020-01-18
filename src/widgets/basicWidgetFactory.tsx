@@ -21,9 +21,15 @@ export class BasicWidgetFactory implements Factory {
 
   evaluateFormulas(propertySchema: any, property: any, data: any) {
     if(propertySchema["default"] && ! data[property]){
+      let defaultValue = evaluate(propertySchema["default"], data);
+      this._onDataChangeCausedByFormulaEvaluation(property, defaultValue);
       return evaluate(propertySchema["default"], data);
     }
     else if(propertySchema["calculated"]){
+      let calculatedValue = evaluate(propertySchema["calculated"], data);
+      if(calculatedValue != data[property]){
+        this._onDataChangeCausedByFormulaEvaluation(property, calculatedValue);
+      }
       return evaluate(propertySchema["calculated"], data);
     }
     return data[property];
@@ -134,6 +140,12 @@ export class BasicWidgetFactory implements Factory {
     let newValue = this.inputs[property][_valueAttribute];
     let ev = new CustomEvent('data-changed',
       { detail: { property: property, value: this._formatValue(dataType, newValue)} });
+    window.dispatchEvent(ev);
+  }
+
+  _onDataChangeCausedByFormulaEvaluation(property, value){
+    let ev = new CustomEvent('data-changed',
+      { detail: { property: property, value: value} });
     window.dispatchEvent(ev);
   }
 
