@@ -55,23 +55,20 @@ export class Form {
   @Listen('data-changed', { target : 'window'})
   _onDataChanged(ev){
     this.dataChanged.emit(ev.detail);
-    console.dir(ev);
   }
 
   @Listen('attachment-changed', { target : 'window'})
   _onAttachmentChanged(ev){
     this.attachmentChanged.emit(ev.detail);
-    console.dir(ev);
   }
 
   @Listen('related-element-action', { target : 'window'})
   _onRelatedElementAction(ev){
     this.relatedElementAction.emit(ev.detail);
-    console.dir(ev);
   }
 
   _getWidgetForProperty(property){
-    return widgetFactory.produceWidget(this.schema, property, this.data[property]);
+    return widgetFactory.produceWidget(this.schema, property, this.data);
   }
 
 }

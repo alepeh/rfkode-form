@@ -12,11 +12,12 @@ export class AdvancedWidgetFactory implements Factory {
         console.log(data);
         const widgetType = this._getWidgetType(schema, property);
         switch (widgetType) {
-            case ("selectRelated"): return this.selectRelatedWidget(property, Array(data));
-            case ("selectMultipleRelated"): return this.selectRelatedWidget(property, data, true);
-            case ("textarea"): return this.textAreaWidget(property, data);
-            case ("signature"): return this.signatureWidget(property, data);
-            default: return this.unsupportedWidget(property, data);
+            case ("selectRelated"):
+                return this.selectRelatedWidget(property, data[property] ? Array(data[property]) : null);
+            case ("selectMultipleRelated"): return this.selectRelatedWidget(property, data[property], true);
+            case ("textarea"): return this.textAreaWidget(property, data[property]);
+            case ("signature"): return this.signatureWidget(property, data[property]);
+            default: return this.unsupportedWidget(property, data[property]);
         }
     }
 
@@ -43,15 +44,13 @@ export class AdvancedWidgetFactory implements Factory {
     }
 
     selectRelatedWidget(property: string, data: Array<any>, multiple?: boolean) {
-        console.log(multiple);
-        debugger;
         return (
             <ion-list>
                 <ion-list-header>
                     <ion-label>{property}</ion-label>
-                    <ion-button disabled={!multiple}>+</ion-button>
+                    <ion-button disabled={(!multiple && data != null)} onClick={() => this._onRelatedElement(property, null, "new")}>+</ion-button>
                 </ion-list-header>
-                {data ? data.map(item => {
+                {(data && data.length > 0) ? data.map(item => {
                     return (
                         <ion-item detail>
                             <ion-label onClick={() => this._onRelatedElement(property, item._id, "view")}>{item._id}</ion-label>

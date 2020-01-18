@@ -1,6 +1,7 @@
 import { h } from '@stencil/core';
 import { Schema } from '../components/form/form';
 import { Factory } from './factory';
+import { evaluate } from '../utils/formula';
 
 export class BasicWidgetFactory implements Factory {
 
@@ -8,13 +9,24 @@ export class BasicWidgetFactory implements Factory {
 
   produceWidget(schema: Schema, property: any, data: any) {
     const schemaType = this._getDataType(schema, property);
+    data[property] = this.evaluateFormulas(schema.jsonSchema.properties[property], property, data);
     switch (schemaType) {
-      case "string": return this.stringWidget(schema.jsonSchema.properties[property], property, data);
-      case "number": return this.numberWidget(property, data);
-      case "boolean": return this.booleanWidget(property, data);
-      case "array" : return this.arrayWidget(schema.jsonSchema.properties[property], property, data);
-      default: return this.textWidget(property, data);
+      case "string": return this.stringWidget(schema.jsonSchema.properties[property], property, data[property]);
+      case "number": return this.numberWidget(schema.jsonSchema.properties[property], property, data[property]);
+      case "boolean": return this.booleanWidget(schema.jsonSchema.properties[property], property, data[property]);
+      case "array" : return this.arrayWidget(schema.jsonSchema.properties[property], property, data[property]);
+      default: return this.textWidget(null, property, data[property]);
     }
+  }
+
+  evaluateFormulas(propertySchema: any, property: any, data: any) {
+    if(propertySchema["default"] && ! data[property]){
+      return evaluate(propertySchema["default"], data);
+    }
+    else if(propertySchema["calculated"]){
+      return evaluate(propertySchema["calculated"], data);
+    }
+    return data[property];
   }
 
   _getDataType(schema: Schema, property: any) {
@@ -50,7 +62,7 @@ export class BasicWidgetFactory implements Factory {
       return (
         <ion-item>
           <ion-label position="stacked">{property}</ion-label>
-          <ion-select id={property} 
+          <ion-select disabled={schema['calculated']} id={property} 
             onIonChange={() => this._onDataChanged(property, "string")} 
             ref={(el) => this.inputs[property] = el}
             value={data} 
@@ -66,7 +78,7 @@ export class BasicWidgetFactory implements Factory {
       return (
         <ion-item>
           <ion-label position="stacked">{property}</ion-label>
-          <ion-datetime id={property} 
+          <ion-datetime disabled={schema['calculated']} id={property} 
             onIonChange={() => this._onDataChanged(property, "date")} 
             ref={(el) => this.inputs[property] = el}
             value={data}>
@@ -75,15 +87,15 @@ export class BasicWidgetFactory implements Factory {
       )
     }
     else {
-      return this.textWidget(property, data);
+      return this.textWidget(schema, property, data);
     }
   }
 
-  textWidget(property: any, data: string) {
+  textWidget(schema: any, property: any, data: string) {
     return (
       <ion-item>
         <ion-label position="stacked">{property}</ion-label>
-        <ion-input onIonInput={() => this._onDataChanged(property, "string")}
+        <ion-input disabled={schema['calculated']} onIonInput={() => this._onDataChanged(property, "string")}
           type="text" id={property} value={data}
           ref={(el) => this.inputs[property] = el}
         ></ion-input>
@@ -91,11 +103,11 @@ export class BasicWidgetFactory implements Factory {
     )
   }
 
-  numberWidget(property: any, data: string) {
+  numberWidget(schema: any, property: any, data: string) {
     return (
       <ion-item>
         <ion-label position="stacked">{property}</ion-label>
-        <ion-input onIonInput={() => this._onDataChanged(property, "number")}
+        <ion-input disabled={schema['calculated']} onIonInput={() => this._onDataChanged(property, "number")}
           type="number" id={property} value={data}
           ref={(el) => this.inputs[property] = el}
         ></ion-input>
@@ -103,11 +115,11 @@ export class BasicWidgetFactory implements Factory {
     )
   }
 
-  booleanWidget(property : any, data : string){
+  booleanWidget(schema: any, property : any, data : string){
     return (
       <ion-item>
         <ion-label position="stacked">{property}</ion-label>
-        <ion-toggle slot="end" 
+        <ion-toggle disabled={schema['calculated']} slot="end" 
           id={property} 
           checked={Boolean(data)}
           onIonChange={() => this._onDataChanged(property, "boolean", 'checked')}
