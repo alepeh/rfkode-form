@@ -37,18 +37,24 @@ describe('rfkode-form', () => {
 
   it('disables input for calculated fields', async () => {
     const page = await preparePage(schema, data);
-    expect(page.root.shadowRoot.querySelector('#text2').getAttribute('disabled')).toBeTruthy();
+    expect(page.root.shadowRoot.querySelector('#text2')).toHaveAttribute('disabled');
   });
 
-  async function preparePage(schema, data) : Promise<SpecPage> {
+  it('does not set a value when a variable in the formula is not bound', async () => {
+    const schema1 = {jsonSchema: {properties : { text5: {type: "string", default : "_gobalContext.text2" }}}};
+    const page = await preparePage(schema1, data);
+    expect(page.root.shadowRoot.querySelector('#text5')).not.toHaveAttribute('value');
+  });
+
+  async function preparePage(schema1, data1) : Promise<SpecPage> {
     const page = await newSpecPage({
       components: [Form
       ],
       html: `<div></div>`,
     });
     let component = page.doc.createElement("rfkode-form");
-    (component as any).data = data;
-    (component as any).schema = schema;
+    (component as any).data = data1;
+    (component as any).schema = schema1;
     page.root.appendChild(component);
     await page.waitForChanges();
     return page;

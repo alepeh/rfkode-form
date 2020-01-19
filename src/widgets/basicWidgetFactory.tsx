@@ -9,7 +9,9 @@ export class BasicWidgetFactory implements Factory {
 
   produceWidget(schema: Schema, property: any, data: any) {
     const schemaType = this._getDataType(schema, property);
-    data[property] = this.evaluateFormulas(schema.jsonSchema.properties[property], property, data);
+    if(schema && schema.jsonSchema){
+      data[property] = this.evaluateFormulas(schema.jsonSchema.properties[property], property, data);
+    }
     switch (schemaType) {
       case "string": return this.stringWidget(schema.jsonSchema.properties[property], property, data[property]);
       case "number": return this.numberWidget(schema.jsonSchema.properties[property], property, data[property]);
@@ -21,16 +23,26 @@ export class BasicWidgetFactory implements Factory {
 
   evaluateFormulas(propertySchema: any, property: any, data: any) {
     if(propertySchema["default"] && ! data[property]){
-      let defaultValue = evaluate(propertySchema["default"], data);
-      this._onDataChangeCausedByFormulaEvaluation(property, defaultValue);
-      return evaluate(propertySchema["default"], data);
+      try{
+        let defaultValue = evaluate(propertySchema["default"], data);
+        this._onDataChangeCausedByFormulaEvaluation(property, defaultValue);
+        return defaultValue;
+      }
+      catch(error){
+        console.error(error);
+      }
     }
     else if(propertySchema["calculated"]){
-      let calculatedValue = evaluate(propertySchema["calculated"], data);
-      if(calculatedValue != data[property]){
+      try{
+        let calculatedValue = evaluate(propertySchema["calculated"], data);
+        if(calculatedValue != data[property]){
         this._onDataChangeCausedByFormulaEvaluation(property, calculatedValue);
       }
-      return evaluate(propertySchema["calculated"], data);
+      return calculatedValue;
+      }
+      catch(error){
+        console.error(error);
+      }
     }
     return data[property];
   }
@@ -98,10 +110,15 @@ export class BasicWidgetFactory implements Factory {
   }
 
   textWidget(schema: any, property: any, data: string) {
+    let dis = false;
+    if(schema && schema['calculated']){
+      console.log("Disabled is true");
+      dis = true;
+    } 
     return (
       <ion-item>
         <ion-label position="stacked">{property}</ion-label>
-        <ion-input disabled={schema['calculated']} onIonInput={() => this._onDataChanged(property, "string")}
+        <ion-input disabled={dis ? true : false} onIonInput={() => this._onDataChanged(property, "string")}
           type="text" id={property} value={data}
           ref={(el) => this.inputs[property] = el}
         ></ion-input>
