@@ -20,6 +20,10 @@ export namespace Components {
     'data': Object;
     'schema': Schema;
   }
+  interface RfkodeImage {
+    'fieldName': any;
+    'value': any;
+  }
 }
 
 declare global {
@@ -36,9 +40,16 @@ declare global {
     prototype: HTMLRfkodeFormElement;
     new (): HTMLRfkodeFormElement;
   };
+
+  interface HTMLRfkodeImageElement extends Components.RfkodeImage, HTMLStencilElement {}
+  var HTMLRfkodeImageElement: {
+    prototype: HTMLRfkodeImageElement;
+    new (): HTMLRfkodeImageElement;
+  };
   interface HTMLElementTagNameMap {
     'rfk-signature': HTMLRfkSignatureElement;
     'rfkode-form': HTMLRfkodeFormElement;
+    'rfkode-image': HTMLRfkodeImageElement;
   }
 }
 
@@ -54,10 +65,15 @@ declare namespace LocalJSX {
     'onRelatedElementAction'?: (event: CustomEvent<any>) => void;
     'schema'?: Schema;
   }
+  interface RfkodeImage {
+    'fieldName'?: any;
+    'value'?: any;
+  }
 
   interface IntrinsicElements {
     'rfk-signature': RfkSignature;
     'rfkode-form': RfkodeForm;
+    'rfkode-image': RfkodeImage;
   }
 }
 
@@ -69,6 +85,7 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       'rfk-signature': LocalJSX.RfkSignature & JSXBase.HTMLAttributes<HTMLRfkSignatureElement>;
       'rfkode-form': LocalJSX.RfkodeForm & JSXBase.HTMLAttributes<HTMLRfkodeFormElement>;
+      'rfkode-image': LocalJSX.RfkodeImage & JSXBase.HTMLAttributes<HTMLRfkodeImageElement>;
     }
   }
 }

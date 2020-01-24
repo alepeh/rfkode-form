@@ -66,7 +66,6 @@ export class Signature {
     console.log("Value: " + this.value);
     if(this.value){
       this.signaturePad.fromDataURL("data:image/png;base64," + this.value);
-    
     }
   }
 }

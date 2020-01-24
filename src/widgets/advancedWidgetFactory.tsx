@@ -17,6 +17,7 @@ export class AdvancedWidgetFactory implements Factory {
             case ("selectMultipleRelated"): return this.selectRelatedWidget(property, data[property], true);
             case ("textarea"): return this.textAreaWidget(property, data[property]);
             case ("signature"): return this.signatureWidget(property, data[property]);
+            case ("image"): return this.imageWidget(property, data[property]);
             default: return this.unsupportedWidget(property, data[property]);
         }
     }
@@ -32,11 +33,23 @@ export class AdvancedWidgetFactory implements Factory {
             </ion-item>
         );
     }
+
+    imageWidget(property: string, data: any) {
+        return(
+            <ion-item>
+                <p>
+                    <ion-label position="stacked">{property}</ion-label>
+                </p>
+                <rfkode-image value={data} fieldName={property}></rfkode-image>
+            </ion-item>
+        );
+    }
+
     textAreaWidget(property: string, data: any) {
         return (
             <ion-item>
                 <ion-label position="stacked">{property}</ion-label>
-                <ion-textarea value={data} onIonInput={() => this._onDataChanged(property)}
+                <ion-textarea auto-grow="true" value={data ? JSON.stringify(data) : ''} onIonInput={() => this._onDataChanged(property)}
                 ref={(el) => this.inputs[property] = el}
                 ></ion-textarea>
             </ion-item>
