@@ -16,6 +16,7 @@ export class AdvancedWidgetFactory implements Factory {
                 return this.selectRelatedWidget(property, data[property] ? Array(data[property]) : null);
             case ("selectMultipleRelated"): return this.selectRelatedWidget(property, data[property], true);
             case ("textarea"): return this.textAreaWidget(property, data[property]);
+            case ("json"): return this.jsonWidget(property, data[property]);
             case ("signature"): return this.signatureWidget(property, data[property]);
             case ("image"): return this.imageWidget(property, data[property]);
             default: return this.unsupportedWidget(property, data[property]);
@@ -49,7 +50,18 @@ export class AdvancedWidgetFactory implements Factory {
         return (
             <ion-item>
                 <ion-label position="stacked">{property}</ion-label>
-                <ion-textarea auto-grow="true" value={data ? JSON.stringify(data) : ''} onIonInput={() => this._onDataChanged(property)}
+                <ion-textarea auto-grow="true" value={data} onIonInput={() => this._onDataChanged(property)}
+                ref={(el) => this.inputs[property] = el}
+                ></ion-textarea>
+            </ion-item>
+        )
+    }
+
+    jsonWidget(property: string, data: any) {
+        return (
+            <ion-item>
+                <ion-label position="stacked">{property}</ion-label>
+                <ion-textarea auto-grow="true" value={data ? JSON.stringify(data) : ''} onIonInput={() => this._onJsonDataChanged(property)}
                 ref={(el) => this.inputs[property] = el}
                 ></ion-textarea>
             </ion-item>
@@ -103,4 +115,11 @@ export class AdvancedWidgetFactory implements Factory {
           { detail: { property: property, value: newValue} });
         window.dispatchEvent(ev);
       }
+    
+    _onJsonDataChanged(property : string){
+        let newValue = JSON.parse(this.inputs[property]['value']);
+        let ev = new CustomEvent('data-changed',
+          { detail: { property: property, value: newValue} });
+        window.dispatchEvent(ev);
+    }
 }

@@ -42,8 +42,8 @@ export class Image {
         console.error('File type is not allowed');
         return false;
       }
-            // upload image
-            this.uploadImage(imageFile);
+      // upload image
+      this.uploadImage(imageFile);
     }else{
       console.error(files.length === 0 ? 'NO IMAGE UPLOADED' : 'YOU CAN ONLY UPLOAD ONE IMAGE AT THE TIME');
       return false;
