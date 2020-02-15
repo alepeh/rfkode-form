@@ -23,9 +23,9 @@ export class Form {
 
   inputs: any = {};
 
-  @Event() dataChanged: EventEmitter;
-  @Event() relatedElementAction: EventEmitter;
-  @Event() attachmentChanged: EventEmitter;
+  @Event({bubbles: true}) dataChanged: EventEmitter;
+  @Event({bubbles: true}) relatedElementAction: EventEmitter;
+  @Event({bubbles: true}) attachmentChanged: EventEmitter;
 
   render() {
     console.log(this.schema);
