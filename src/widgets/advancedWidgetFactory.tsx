@@ -69,13 +69,12 @@ export class AdvancedWidgetFactory implements Factory {
             <ion-list>
                 <ion-list-header>
                     <ion-label>{property}</ion-label>
-                    <ion-button disabled={(!multiple && data != null)} onClick={() => this._onRelatedElement(property, null, "new")}>+</ion-button>
+                    <ion-button onClick={() => this._onRelatedElement(property, null, "edit")}>{multiple ? "+" : "Select"}</ion-button>
                 </ion-list-header>
                 {(data && data.length > 0) ? data.map(item => {
                     return (
                         <ion-item detail>
                             <ion-label onClick={() => this._onRelatedElement(property, item._id, "view")}>{item._id}</ion-label>
-                            <ion-button onClick={() => this._onRelatedElement(property, item._id, "edit")} slot="end">Change</ion-button>
                         </ion-item>
                     )
                 }) : ""}
@@ -100,7 +99,7 @@ export class AdvancedWidgetFactory implements Factory {
 
     _onRelatedElement(property: string, value: any, action: string) {
         let ev = new CustomEvent('related-element-action',
-            { detail: { action, property: property, value: value } });
+            { detail: { action, property: property, value: value }, bubbles: true });
         window.dispatchEvent(ev);
     }
 
