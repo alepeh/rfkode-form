@@ -22,7 +22,6 @@ export class Image {
   componentDidLoad() {
     if(this.value){
       const imagePreviewContainer: HTMLElement = this.elementHost.shadowRoot.querySelector('#image-preview');
-      console.log("Blob Value: " + this.value);
       const url = URL.createObjectURL(blobUtil.base64StringToBlob(this.value));
       imagePreviewContainer.style.backgroundImage = `url(${url})`;
     }

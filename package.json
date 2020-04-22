@@ -1,6 +1,6 @@
 {
   "name": "rfkode-form",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "rfkode form editor",
   "repository": {
     "type": "git",
@@ -26,8 +26,8 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
-    "@stencil/core": "1.8.5",
-    "@types/jest": "24.0.23",
+    "@stencil/core": "1.12.5",
+    "@types/jest": "24.9.1",
     "@types/puppeteer": "1.20.3",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
@@ -35,10 +35,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@ionic/core": "^4.11.5",
+    "@ionic/core": "5.0.7",
     "blob-util": "^2.0.2",
     "expr-eval": "^2.0.2",
-    "ionicons": "^4.6.3",
+    "ionicons": "5.0.0",
     "signature_pad": "^3.0.0-beta.3"
   }
 }

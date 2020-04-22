@@ -7,9 +7,6 @@ export class AdvancedWidgetFactory implements Factory {
     inputs: any = {};
 
     produceWidget(schema: Schema, property: string, data: any) {
-        console.log(schema);
-        console.log(property);
-        console.log(data);
         const widgetType = this._getWidgetType(schema, property);
         switch (widgetType) {
             case ("selectRelated"):
@@ -24,7 +21,6 @@ export class AdvancedWidgetFactory implements Factory {
     }
 
     signatureWidget(property: string, data: any) {
-        console.log(property + " " + data);
         return(
             <ion-item>
                 <p>

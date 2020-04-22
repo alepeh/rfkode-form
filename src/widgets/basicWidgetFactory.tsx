@@ -57,7 +57,6 @@ export class BasicWidgetFactory implements Factory {
   }
 
   arrayWidget(schema: any, property: any, data: any) {
-    console.log(data);
     return (
       <ion-item>
         <ion-label position="stacked">{property}</ion-label>
@@ -112,7 +111,6 @@ export class BasicWidgetFactory implements Factory {
   textWidget(schema: any, property: any, data: string) {
     let dis = false;
     if(schema && schema['calculated']){
-      console.log("Disabled is true");
       dis = true;
     } 
     return (

@@ -70,5 +70,4 @@ export class Form {
   _getWidgetForProperty(property){
     return widgetFactory.produceWidget(this.schema, property, this.data);
   }
-
 }
