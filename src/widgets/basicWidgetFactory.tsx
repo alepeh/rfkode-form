@@ -155,6 +155,7 @@ export class BasicWidgetFactory implements Factory {
     let newValue = this.inputs[property][_valueAttribute];
     let ev = new CustomEvent('data-changed',
       { detail: { property: property, value: this._formatValue(dataType, newValue)} });
+    console.dir(ev);
     window.dispatchEvent(ev);
   }
 
@@ -168,7 +169,7 @@ export class BasicWidgetFactory implements Factory {
     switch (dataType) {
       case "number": return Number(value);
       case "boolean": return Boolean(value);
-      case "date": return value.substring(0, value.indexOf("T"));   
+      case "date": return value.indexOf("T") > 0 ? value.substring(0, value.indexOf("T")) : value; 
       default: return value;
     }
   }
