@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Schema, } from "./components/form/form";
+import { Schema } from "./components/form/form";
 export namespace Components {
     interface RfkSignature {
         "fieldName": any;
