@@ -74,7 +74,7 @@ export class AdvancedWidgetFactory implements Factory {
                 {(data && data.length > 0) ? data.map(item => {
                     return (
                         <ion-item detail>
-                            <ion-label onClick={() => this._onRelatedElement(property, item._id, "view")}>{item._id}</ion-label>
+                            <ion-label onClick={() => this._onRelatedElement(property, item._id, "view")}>{item['label'] ? item['label'] : item._id}</ion-label>
                         </ion-item>
                     )
                 }) : ""}
