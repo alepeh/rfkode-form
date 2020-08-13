@@ -161,7 +161,7 @@ export class BasicWidgetFactory implements Factory {
 
   _onDataChangeCausedByFormulaEvaluation(property, value){
     let ev = new CustomEvent('data-changed',
-      { detail: { property: property, value: value} });
+      { detail: { property: property, value: value, source: 'formula'} });
     window.dispatchEvent(ev);
   }
 
