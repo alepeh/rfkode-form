@@ -92,11 +92,12 @@ export class BasicWidgetFactory implements Factory {
       )
     }
     else if (schema.format && schema.format === "date"){
+      let maxYear = (new Date().getFullYear() + 2).toString();
       return (
         <ion-item>
           <ion-label position="stacked">{property}</ion-label>
-          <ion-datetime disabled={schema['calculated']} id={property} 
-            onIonChange={() => this._onDataChanged(property, "date")} 
+          <ion-datetime disabled={schema['calculated']} id={property} max={maxYear}
+            onIonChange={() => this._onDataChanged(property, "date")}
             ref={(el) => this.inputs[property] = el}
             value={data}>
           </ion-datetime>
