@@ -67,7 +67,7 @@
 .image-upload__preview > div {
   height: 100%;
   width: 100%;
-  background-size: cover;
+  background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
 }

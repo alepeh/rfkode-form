@@ -15,7 +15,7 @@ export class AdvancedWidgetFactory implements Factory {
             case ("textarea"): return this.textAreaWidget(property, data[property]);
             case ("json"): return this.jsonWidget(property, data[property]);
             case ("signature"): return this.signatureWidget(property, data[property]);
-            case ("image"): return this.imageWidget(property, data[property]);
+            case ("image"): return this.imageWidget(property, data[property], data['_globalContext']);
             default: return this.unsupportedWidget(property, data[property]);
         }
     }
@@ -31,7 +31,12 @@ export class AdvancedWidgetFactory implements Factory {
         );
     }
 
-    imageWidget(property: string, data: any) {
+    imageWidget(property: string, data: string, configuration: any) {
+        console.log("Config")
+        console.dir(configuration)
+        if((!data.startsWith('http')) && configuration && configuration['attachment_baseurl']){
+            data = configuration['attachment_baseurl'] + data
+        }
         return(
             <ion-item>
                 <p>
