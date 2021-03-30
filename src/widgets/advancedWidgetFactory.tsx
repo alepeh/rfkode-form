@@ -34,7 +34,7 @@ export class AdvancedWidgetFactory implements Factory {
     imageWidget(property: string, data: string, configuration: any) {
         console.log("Config")
         console.dir(configuration)
-        if((!data.startsWith('http')) && configuration && configuration['attachment_baseurl']){
+        if(data && (!data.startsWith('http')) && configuration && configuration['attachment_baseurl']){
             data = configuration['attachment_baseurl'] + data
         }
         return(
