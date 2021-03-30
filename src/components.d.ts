@@ -17,7 +17,7 @@ export namespace Components {
     }
     interface RfkodeImage {
         "fieldName": any;
-        "value": any;
+        "value": string;
     }
 }
 declare global {
@@ -59,7 +59,7 @@ declare namespace LocalJSX {
     }
     interface RfkodeImage {
         "fieldName"?: any;
-        "value"?: any;
+        "value"?: string;
     }
     interface IntrinsicElements {
         "rfk-signature": RfkSignature;

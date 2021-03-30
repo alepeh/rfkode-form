@@ -12,7 +12,7 @@ const ALLOWED_FILE_TYPES = 'image.*';
 export class Image {
 
   @Prop() fieldName;
-  @Prop() value;
+  @Prop() value: string;
 
 
   fileInput: HTMLInputElement;
@@ -22,7 +22,14 @@ export class Image {
   componentDidLoad() {
     if(this.value){
       const imagePreviewContainer: HTMLElement = this.elementHost.shadowRoot.querySelector('#image-preview');
-      const url = URL.createObjectURL(blobUtil.base64StringToBlob(this.value));
+      let url = '';
+      if (this.value.startsWith('http')){
+        url = this.value;
+      }
+      else {
+        url = URL.createObjectURL(blobUtil.base64StringToBlob(this.value));
+
+      }
       imagePreviewContainer.style.backgroundImage = `url(${url})`;
     }
   }
