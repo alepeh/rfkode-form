@@ -65,15 +65,11 @@ export class AdvancedWidgetFactory implements Factory {
                 <p>
                     <ion-label position="stacked">{property}</ion-label>
                 </p>
-                <fleshy-jsoneditor
+                <fleshy-jsoneditor id={property}
                     mode="code" 
                     onChange={(e) => this._onJsonDataChanged(property, e.detail.json)} 
                     json={data}
-                    ref={(el) => this.inputs[property] = el}
                 ></fleshy-jsoneditor>
-                {/* <ion-textarea auto-grow="true" value={data ? JSON.stringify(data) : ''} onIonInput={() => this._onJsonDataChanged(property)}
-                ref={(el) => this.inputs[property] = el}
-                ></ion-textarea> */}
             </ion-item>
         )
     }
@@ -127,10 +123,10 @@ export class AdvancedWidgetFactory implements Factory {
         window.dispatchEvent(ev);
       }
     
-    _onJsonDataChanged(property : string, value : any){
+    _onJsonDataChanged(property : string, newValue : any){
+        console.dir(newValue);
         let ev = new CustomEvent('data-changed',
-          { detail: { property: property, value: value} });
-        console.dir(value);
+          { detail: { property: property, value: newValue} });
         window.dispatchEvent(ev);
     }
 }
