@@ -1,6 +1,7 @@
 import { h } from '@stencil/core';
 import { Schema } from '../components/form/form';
 import { Factory } from './factory';
+import '@trystan2k/fleshy-jsoneditor';
 
 export class AdvancedWidgetFactory implements Factory {
 
@@ -61,10 +62,14 @@ export class AdvancedWidgetFactory implements Factory {
     jsonWidget(property: string, data: any) {
         return (
             <ion-item>
-                <ion-label position="stacked">{property}</ion-label>
-                <ion-textarea auto-grow="true" value={data ? JSON.stringify(data) : ''} onIonInput={() => this._onJsonDataChanged(property)}
-                ref={(el) => this.inputs[property] = el}
-                ></ion-textarea>
+                <p>
+                    <ion-label position="stacked">{property}</ion-label>
+                </p>
+                <fleshy-jsoneditor id={property}
+                    mode="code" 
+                    onChange={(e) => this._onJsonDataChanged(property, e.detail.json)} 
+                    json={data}
+                ></fleshy-jsoneditor>
             </ion-item>
         )
     }
@@ -118,8 +123,8 @@ export class AdvancedWidgetFactory implements Factory {
         window.dispatchEvent(ev);
       }
     
-    _onJsonDataChanged(property : string){
-        let newValue = JSON.parse(this.inputs[property]['value']);
+    _onJsonDataChanged(property : string, newValue : any){
+        console.dir(newValue);
         let ev = new CustomEvent('data-changed',
           { detail: { property: property, value: newValue} });
         window.dispatchEvent(ev);
