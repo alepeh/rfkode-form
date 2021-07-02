@@ -92,7 +92,7 @@ export class BasicWidgetFactory implements Factory {
       )
     }
     else if (schema.format && schema.format === "date"){
-      let maxYear = (new Date().getFullYear() + 2).toString();
+      let maxYear = (new Date().getFullYear() + 3).toString();
       return (
         <ion-item>
           <ion-label position="stacked">{property}</ion-label>
